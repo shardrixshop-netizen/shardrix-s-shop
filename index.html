@@ -10,7 +10,7 @@ body {
   margin: 0;
   font-family: system-ui, sans-serif;
   background: #111;
-  color: #ede9e0;
+  color: #eee;
 }
 
 .tabs {
@@ -34,8 +34,6 @@ body {
 .category-panel {
   display: none;
   padding: 16px;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
 }
 
 .category-panel.active {
@@ -46,53 +44,24 @@ body {
   background: rgba(0,0,0,0.6);
   border-radius: 10px;
   padding: 16px;
-  max-width: 320px;
+  max-width: 360px;
   margin-bottom: 16px;
 }
 
-.item-icon {
-  width: 64px;
-  height: 64px;
-  image-rendering: pixelated;
-}
-
 .item-name {
-  font-size: 1.1rem;
   font-weight: bold;
-  margin-top: 8px;
+  font-size: 1.1rem;
 }
 
 .item-desc {
-  font-size: 0.85rem;
-  color: #bdb6aa;
-  margin: 6px 0;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  color: #ccc;
 }
 
-.price-tag {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.price {
   margin-top: 8px;
-}
-
-.price-tag img {
-  width: 20px;
-  height: 20px;
-  image-rendering: pixelated;
-}
-
-.qty-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.qty-btn {
-  width: 28px;
-  height: 28px;
-  font-size: 18px;
-  cursor: pointer;
+  font-size: 0.95rem;
 }
 </style>
 </head>
@@ -102,55 +71,41 @@ body {
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('buy', this)">Buy</button>
   <button class="tab-btn" onclick="switchTab('sell', this)">Sell</button>
+  <button class="tab-btn" onclick="switchTab('random', this)">Random</button>
 </div>
 
 <!-- BUY -->
 <div class="category-panel active" id="panel-buy">
+
   <div class="card">
-    <img class="item-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="TNT">
+    <div class="item-name">Respawn Anchors</div>
+    <div class="item-desc">Stacks of Respawn Anchors</div>
+    <div class="price">Price: <strong>4 Netherite Ingots</strong></div>
+  </div>
+
+</div>
+
+<!-- SELL -->
+<div class="category-panel" id="panel-sell">
+  <div class="card">
     <div class="item-name">TNT</div>
-    <div class="item-desc">3 Stacks of TNT</div>
-    <div class="price-tag">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="Netherite">
-      <strong>1</strong> Netherite Ingot
-    </div>
-    <div class="qty-row">
-      <button class="qty-btn" onclick="changeQty('tnt',-1)">−</button>
-      <span id="tnt-qty">0</span>
-      <button class="qty-btn" onclick="changeQty('tnt',1)">+</button>
-    </div>
+    <div class="item-desc">3 stacks of TNT</div>
+    <div class="price">Sell for <strong>1 Netherite Ingot</strong></div>
   </div>
 </div>
 
-<!-- SELL (FIXED & GUARANTEED VISIBLE) -->
-<div class="category-panel" id="panel-sell">
+<!-- RANDOM -->
+<div class="category-panel" id="panel-random">
+
   <div class="card">
-    <img class="item-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="Shulker Sand">
-    <div class="item-name">Sand</div>
-    <div class="item-desc">
-      1 Shulker Box of Sand<br>
-      Sell your sand for ingots.
-    </div>
-    <div class="price-tag">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="Netherite">
-      <strong>1</strong> Netherite Ingot
-    </div>
-    <div class="qty-row">
-      <button class="qty-btn" onclick="changeQty('sand',-1)">−</button>
-      <span id="sand-qty">0</span>
-      <button class="qty-btn" onclick="changeQty('sand',1)">+</button>
-    </div>
+    <div class="item-name">Oak Logs</div>
+    <div class="item-desc">1 full stack of oak logs</div>
+    <div class="price">Price: <strong>1 Netherite Ingot</strong></div>
   </div>
+
 </div>
 
 <script>
-const qtys = { tnt: 0, sand: 0 };
-
-function changeQty(item, delta) {
-  qtys[item] = Math.max(0, qtys[item] + delta);
-  document.getElementById(item + '-qty').textContent = qtys[item];
-}
-
 function switchTab(name, btn) {
   document.querySelectorAll('.category-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
