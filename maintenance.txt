@@ -1,2 +1,2 @@
-true
+false
 The shop is currently closed. Check back soon!
